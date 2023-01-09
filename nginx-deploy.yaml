@@ -27,6 +27,6 @@ spec:
           volumes:
           - name: html
             gitRepo:
-              repository: https://github.com/sugreevudu/kubernetes.git
+              repository: https://github.com/sugreevudu/argocd-files.git
               revision: master
               directory: .            
