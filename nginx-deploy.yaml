@@ -27,11 +27,11 @@ spec:
           - name: git-cloner
 	    image: alpine/git
 	    args:
-	       - clone
-	       - --single-branch
-	       - --
-	       - https://github.com/sugreevudu/argocd-files.git
-	       - /data
+	       - "clone"
+	       - "--single-branch"
+	       - "--"
+	       - "https://github.com/sugreevudu/argocd-files.git"
+	       - "/data"
 	    volumeMounts:
 	    - mountPath: /data
 	      name: html
