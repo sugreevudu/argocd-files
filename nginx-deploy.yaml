@@ -20,8 +20,7 @@ spec:
             image: nginx
             volumeMounts:
             - name: html
-              mountPath: /usr/share/nginx/html
-              readOnly: true
+              mountPath: "/usr/share/nginx/html"
             ports:
             - containerPort: 80
 	  initContainers:
