@@ -2,32 +2,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-      name: nginx-deployment
-            labels:
-	              app: nginx-app
-		      spec:
-		          replicas: 1
-			      selector:
-			             matchLabels:
-				                 app: nginx-app
-						     template:
-						            metadata:
-							             labels:
-								                app: nginx-app
-										       spec:
-										                 containers:
-												           - name: nginx-container
-													               image: nginx
-														                   volumeMounts:
-																               - name: html
-																	                     mountPath: "/usr/share/nginx/html"
-																			                 ports:
-																					             - containerPort: 80
-																						               initContainers:
-																							                 - name: git-cloner
-																									             image: alpine/git
-																										                 args:
-																												                - "clone"
+    name: nginx-deployment
+    labels:
+	app: nginx-app
+spec:
+    replicas: 1
+    selector:
+	matchLabels:
+	    app: nginx-app
+    template:
+        metadata:
+	   labels:
+	     app: nginx-app
+	spec:
+	   containers:
+	   - name: nginx-container
+	     image: nginx
+	     volumeMounts:
+	     - name: html
+	       mountPath: "/usr/share/nginx/html"
+	     ports:
+	     - containerPort: 80
+	   initContainers:
+	   - name: git-cloner
+	     image: alpine/git
+	     args:
+		- "clone"
+                - "--single-branch"
+                - "--"
+                - "https://github.com/sugreevudu/argocd-files.git"
+                - "/data"
+             volumeMounts:
+             - name: html
+               mountPath: /data
+           volumes:
+           - name: html
+             emptyDir: {}
+    - "clone"
 																														               - "--single-branch"
 																															                      - "--"
 																																	                     - "https://github.com/sugreevudu/argocd-files.git"
