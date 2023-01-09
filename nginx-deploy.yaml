@@ -24,9 +24,18 @@ spec:
               readOnly: true
             ports:
             - containerPort: 80
+	  initContainers:
+          - name: git-cloner
+	    image: alpine/git
+	    args:
+	       - clone
+	       - --single-branch
+	       - --
+	       - https://github.com/sugreevudu/argocd-files.git
+	       - /data
+	    volumeMounts:
+	    - mountPath: /data
+	      name: html
           volumes:
           - name: html
-            gitRepo:
-              repository: https://github.com/sugreevudu/argocd-files.git
-              revision: master
-              directory: .            
+            emptyDir: {}        
